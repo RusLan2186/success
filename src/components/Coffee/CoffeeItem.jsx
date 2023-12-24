@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import cl from './Coffee.module.scss';
 import { useDispatch } from 'react-redux';
 import { addCart } from '../../redux/slices/cartSlice';
 import Modal from '../Modal/Modal';
+import CoffeeSlider from './CoffeeSlider';
 
-const CoffeeItem = ({ coffee, number, remove }) => {
+const CoffeeItem = memo(({ coffee, number, remove }) => {
   const observer = useRef();
   const imageRef = useRef();
   const [visible, setVisible] = useState(false);
@@ -30,8 +31,6 @@ const CoffeeItem = ({ coffee, number, remove }) => {
     dispatch(addCart({ id, title, image }));
   };
 
-  const showNextImage = (id) => {};
-
   return (
     <div ref={imageRef} className={cl.coffeeItem}>
       <div className={cl.coffeeTitle}>
@@ -50,17 +49,11 @@ const CoffeeItem = ({ coffee, number, remove }) => {
       <div onClick={() => setOpenModal(true)} className={cl.coffeeImage}>
         {visible ? <img src={coffee.image} alt='coffee' /> : <div className={cl.hid}></div>}
       </div>
-      <Modal visible={openModal} setVisible={setOpenModal}>
-        <div className={cl.imageModalWrapper}>
-          <span>prev</span>
-          <div className={cl.imageModal}>
-            <img src={coffee.image} alt='coffee' />
-          </div>
-          <span onClick={() => showNextImage(coffee.id)}>next</span>
-        </div>
+      <Modal visible={openModal} setVisible={setOpenModal} id={coffee.id}>
+        <CoffeeSlider />
       </Modal>
     </div>
   );
-};
+});
 
 export default CoffeeItem;

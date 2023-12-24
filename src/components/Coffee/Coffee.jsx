@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import cl from './Coffee.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { coffeeFetching } from '../../redux/coffeeCreator';
 import CoffeeItem from './CoffeeItem';
 import { deleteCoffee } from '../../redux/slices/coffeeSlice';
 import AddCoffee from './AddCoffee';
+import CoffeeSlider from './CoffeeSlider';
 
-const Coffee = () => {
+const Coffee = memo(() => {
   const coffeeList = useSelector((store) => store.coffee.coffee);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,6 +23,7 @@ const Coffee = () => {
   return (
     <div className='coffee__container'>
       <div className={cl.title}>Coffee</div>
+      <div className='slider'>{/* <CoffeeSlider /> */}</div>
       <div>
         <AddCoffee />
       </div>
@@ -34,6 +36,6 @@ const Coffee = () => {
       )}
     </div>
   );
-};
+});
 
 export default Coffee;
