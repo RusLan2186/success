@@ -1,0 +1,65 @@
+@use "sass:math";
+@import "../../scss/App.scss";
+
+.cartWrapper {
+   display: flex;
+   flex-direction: column;
+}
+
+.cartItem {
+   display: flex;
+   align-items: center;
+   column-gap: rem(100);
+   margin-bottom: rem(50);
+}
+.cartContent {
+   width: 40%;
+   margin-top: rem(-30);
+}
+.cartHeader {
+   display: flex;
+   column-gap: rem(10);
+   align-items: center;
+   margin-bottom: rem(10);
+}
+
+.cartImage {
+   width: 100%;
+   position: relative;
+   padding-bottom: 60%;
+   img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      border-radius: rem(10);
+   }
+}
+.cartActions {
+   display: flex;
+   column-gap: rem(25);
+   align-items: center;
+}
+.cartBtn,
+.cartBtnDis {
+   border: 3px solid #2a14ee;
+   width: rem(60);
+   height: rem(60);
+   border-radius: 50%;
+   font-size: rem(30);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+}
+.cartBtnDis {
+   opacity: 0.3;
+   pointer-events: none;
+}
+.clear {
+   // width: rem(100);
+   display: flex;
+   justify-content: flex-end;
+}

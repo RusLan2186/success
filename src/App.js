@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import './scss/App.scss';
 
-function App() {
+import Header from './components/Header/Header';
+import Test from './components/Test/Test';
+import Coffee from './components/Coffee/Coffee';
+const App = () => {
+  const [isSorted, setIsSorted] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div onClick={() => setIsSorted(false)} className='wrapper'>
+      <header>
+        <Header />
       </header>
+      <section className='coffee'>
+        <Coffee />
+      </section>
+      <section>
+        <Test isSorted={isSorted} changeIsSorted={setIsSorted} />
+      </section>
     </div>
   );
-}
+};
 
 export default App;
