@@ -2,27 +2,17 @@ import React, { useEffect, useState } from 'react';
 import cl from './Test.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import TestItem from './TestItem';
-import {
-  deleteUser,
-  fetchUsers1,
-  sortUser,
-  usersFetching,
-  usersFetchingError,
-  usersFetchingSuccess,
-} from '../../redux/slices/usersSlice';
+import { closeSorting, deleteUser, sortUser } from '../../redux/slices/usersSlice';
 import AddUser from './AddUser';
 
 import { fetchUsers } from '../../redux/slices/usersSlice';
 
-const Test = ({ changeIsSorted, isSorted }) => {
+const Test = () => {
   const [sortTitle, setSortTitle] = useState('Name');
-
   const usersList = useSelector((store) => store.users.usersSearchList);
-  const { isLoading, isError } = useSelector((store) => store.users);
   const { status } = useSelector((store) => store.users);
   const dispatch = useDispatch();
-
-  console.log(status);
+  const openSorting = useSelector((store) => store.users.sortingClose);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -41,7 +31,8 @@ const Test = ({ changeIsSorted, isSorted }) => {
       dispatch(sortUser({ feel: 'email' }));
       setSortTitle('Email');
     }
-    changeIsSorted(false);
+
+    dispatch(closeSorting(false));
   }
 
   return (
@@ -51,10 +42,10 @@ const Test = ({ changeIsSorted, isSorted }) => {
       <div className={cl.sort}>
         <div className={cl.sort} onClick={(e) => e.stopPropagation()}>
           Sort by:
-          <span className={cl.sort__title} onClick={() => changeIsSorted(!isSorted)}>
+          <span className={cl.sort__title} onClick={() => dispatch(closeSorting(!openSorting))}>
             {sortTitle}
           </span>
-          {isSorted && (
+          {openSorting && (
             <ul className={cl.sort__list}>
               <li onClick={() => sortBy('name')}>Name</li>
               <li onClick={() => sortBy('email')}>Email</li>

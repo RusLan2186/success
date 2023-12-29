@@ -1,22 +1,18 @@
-import { useState } from 'react';
 import './scss/App.scss';
-
 import Header from './components/Header/Header';
-import Test from './components/Test/Test';
-// import Coffee from './components/Coffee/Coffee';
+import AppRouter from './routing/AppRouter';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { closeSorting } from './redux/slices/usersSlice';
+
 const App = () => {
-  const [isSorted, setIsSorted] = useState(false);
+  const dispatch = useDispatch();
   return (
-    <div onClick={() => setIsSorted(false)} className='wrapper'>
+    <div onClick={() => dispatch(closeSorting(false))}>
       <header>
         <Header />
       </header>
-      {/* <section className='coffee'>
-        <Coffee />
-      </section> */}
-      <section>
-        <Test isSorted={isSorted} changeIsSorted={setIsSorted} />
-      </section>
+      <AppRouter />
     </div>
   );
 };

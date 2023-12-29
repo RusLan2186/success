@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   isError: '',
   status: 'loading',
+  sortingClose: false,
 };
 export const fetchUsers = createAsyncThunk('users/fetchUsersStatus', async () => {
   const { data } = await axios.get('https://jsonplaceholder.typicode.com/users');
@@ -17,18 +18,6 @@ export const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    // usersFetching(state) {
-    //   state.isLoading = true;
-    // },
-    // usersFetchingSuccess(state, action) {
-    //   state.list = action.payload;
-    //   state.isError = '';
-    //   state.isLoading = false;
-    // },
-    // usersFetchingError(state, action) {
-    //   state.isError = action.payload;
-    //   state.isLoading = false;
-    // },
     addUser(state, action) {
       state.list.push(action.payload);
     },
@@ -57,6 +46,9 @@ export const userSlice = createSlice({
           return a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1;
       });
     },
+    closeSorting(state, action) {
+      state.sortingClose = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,5 +76,6 @@ export const {
   changeUser,
   searchUser,
   sortUser,
+  closeSorting,
 } = userSlice.actions;
 export default userSlice.reducer;

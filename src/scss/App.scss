@@ -28,7 +28,7 @@ body {
 .header__container {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   column-gap: rem(15);
   align-items: center;
 }
@@ -58,6 +58,6 @@ body {
   padding: rem(5) rem(10);
 }
 .active {
-  width: 200px;
-  height: 200px;
+  text-transform: uppercase;
+  color: orange;
 }

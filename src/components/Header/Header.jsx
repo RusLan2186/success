@@ -5,6 +5,7 @@ import { useInput } from '../../hooks/useInput';
 import { searchUser } from '../../redux/slices/usersSlice';
 import Modal from '../Modal/Modal';
 import Cart from '../Cart/Cart';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const searchResult = useSelector((store) => store.users.usersSearchList);
@@ -23,6 +24,14 @@ const Header = () => {
     <div className={cl.header}>
       <div className='header__container'>
         <input className={cl.input} type='text' placeholder='Search' {...searchInput.bind} />
+        <nav className={cl.menu}>
+          <NavLink className={cl.link} to={'/test'}>
+            Test
+          </NavLink>
+          <NavLink className={cl.link} to={'/coffee'}>
+            Coffee
+          </NavLink>
+        </nav>
         <div onClick={() => setModal(!modal)} className={cl.cart}>
           <span> Cart</span>
           <span> {totalCount}</span>
