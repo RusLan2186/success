@@ -1,28 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   list: [],
   usersSearchList: [],
   isLoading: false,
   isError: '',
+  status: 'loading',
 };
+export const fetchUsers = createAsyncThunk('users/fetchUsersStatus', async () => {
+  const { data } = await axios.get('https://jsonplaceholder.typicode.com/users');
+  return data;
+});
 
 export const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    usersFetching(state) {
-      state.isLoading = true;
-    },
-    usersFetchingSuccess(state, action) {
-      state.list = action.payload;
-      state.isError = '';
-      state.isLoading = false;
-    },
-    usersFetchingError(state, action) {
-      state.isError = action.payload;
-      state.isLoading = false;
-    },
+    // usersFetching(state) {
+    //   state.isLoading = true;
+    // },
+    // usersFetchingSuccess(state, action) {
+    //   state.list = action.payload;
+    //   state.isError = '';
+    //   state.isLoading = false;
+    // },
+    // usersFetchingError(state, action) {
+    //   state.isError = action.payload;
+    //   state.isLoading = false;
+    // },
     addUser(state, action) {
       state.list.push(action.payload);
     },
@@ -52,12 +58,27 @@ export const userSlice = createSlice({
       });
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        state.status = 'loading';
+        state.list = [];
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.list = action.payload;
+        state.status = 'success';
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        state.status = 'error';
+        state.list = [];
+      });
+  },
 });
 
 export const {
-  usersFetching,
-  usersFetchingSuccess,
-  usersFetchingError,
+  // usersFetching,
+  // usersFetchingSuccess,
+  // usersFetchingError,
   addUser,
   deleteUser,
   changeUser,

@@ -1,30 +1,30 @@
 import React from 'react';
-import { Swiper, SwiperSlide, Scrollbar, A11y } from 'swiper/react';
-import { EffectFade, Navigation, Pagination, Parallax } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
 import { useSelector } from 'react-redux';
 import 'swiper/css';
-import 'swiper/swiper-bundle.css';
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
+// import 'swiper/swiper-bundle.css';
 
 import cl from './Coffee.module.scss';
 
-const CoffeeSlider = React.memo((id) => {
+const CoffeeSlider = React.memo(({ image }) => {
   const coffeeList = useSelector((store) => store.coffee.coffee);
 
   return (
     <div className='slider__container'>
       <Swiper
-        modules={[Navigation, Pagination, Parallax]}
+        modules={[Navigation, Pagination]}
         // effect='fade'
         spaceBetween={50}
         slidesPerView={1}
-        // onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log(5 + 10)}
+        // onSwiper={(swiper) => console.log(swiper)}
         navigation
         pagination={{ clickable: true }}
-        activeIndex={5}
-        // slideActiveClass={id}
       >
-        <div classname='swiper-button-next'></div>
         {coffeeList.map((coffee) => (
           <SwiperSlide key={coffee.id} className='swiper-slide'>
             <span> {coffee.title}</span>

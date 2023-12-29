@@ -6,6 +6,7 @@ import CoffeeItem from './CoffeeItem';
 import { deleteCoffee } from '../../redux/slices/coffeeSlice';
 import AddCoffee from './AddCoffee';
 import CoffeeSlider from './CoffeeSlider';
+import Gallery from './Gallery';
 
 const Coffee = memo(() => {
   const coffeeList = useSelector((store) => store.coffee.coffee);
@@ -23,7 +24,10 @@ const Coffee = memo(() => {
   return (
     <div className='coffee__container'>
       <div className={cl.title}>Coffee</div>
-      <div className='slider'>{/* <CoffeeSlider /> */}</div>
+      <div>
+        <Gallery />
+      </div>
+
       <div>
         <AddCoffee />
       </div>

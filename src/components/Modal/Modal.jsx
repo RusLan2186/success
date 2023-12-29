@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import cl from './Modal.module.scss';
+import CoffeeSlider from '../Coffee/CoffeeSlider';
 
-const Modal = ({ visible, setVisible, children }) => {
+const Modal = ({ visible, setVisible, children, id }) => {
   const modalClass = `${cl.modal} + ${cl.modalAct}`;
   const modalClassContent = `${cl.content} + ${cl.contentAct}`;
 

@@ -50,7 +50,9 @@ const CoffeeItem = memo(({ coffee, number, remove }) => {
         {visible ? <img src={coffee.image} alt='coffee' /> : <div className={cl.hid}></div>}
       </div>
       <Modal visible={openModal} setVisible={setOpenModal} id={coffee.id}>
-        <CoffeeSlider />
+        <div className='slider'>
+          <CoffeeSlider />
+        </div>
       </Modal>
     </div>
   );

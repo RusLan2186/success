@@ -3,7 +3,7 @@ import './scss/App.scss';
 
 import Header from './components/Header/Header';
 import Test from './components/Test/Test';
-import Coffee from './components/Coffee/Coffee';
+// import Coffee from './components/Coffee/Coffee';
 const App = () => {
   const [isSorted, setIsSorted] = useState(false);
   return (
@@ -11,9 +11,9 @@ const App = () => {
       <header>
         <Header />
       </header>
-      <section className='coffee'>
+      {/* <section className='coffee'>
         <Coffee />
-      </section>
+      </section> */}
       <section>
         <Test isSorted={isSorted} changeIsSorted={setIsSorted} />
       </section>

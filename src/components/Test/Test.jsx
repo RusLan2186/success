@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TestItem from './TestItem';
 import {
   deleteUser,
+  fetchUsers1,
   sortUser,
   usersFetching,
   usersFetchingError,
@@ -11,14 +12,17 @@ import {
 } from '../../redux/slices/usersSlice';
 import AddUser from './AddUser';
 
-import { fetchUsers } from '../../redux/slices/usersCreator';
+import { fetchUsers } from '../../redux/slices/usersSlice';
 
 const Test = ({ changeIsSorted, isSorted }) => {
   const [sortTitle, setSortTitle] = useState('Name');
 
   const usersList = useSelector((store) => store.users.usersSearchList);
   const { isLoading, isError } = useSelector((store) => store.users);
+  const { status } = useSelector((store) => store.users);
   const dispatch = useDispatch();
+
+  console.log(status);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -42,8 +46,8 @@ const Test = ({ changeIsSorted, isSorted }) => {
 
   return (
     <div className='test__container'>
-      {isLoading && <h1>Loading</h1>}
-      {isError && <h1>{isError}</h1>}
+      {status === 'loading' && <h1>Loading</h1>}
+      {status === 'error' && <h1>"error"</h1>}
       <div className={cl.sort}>
         <div className={cl.sort} onClick={(e) => e.stopPropagation()}>
           Sort by:
