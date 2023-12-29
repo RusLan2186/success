@@ -1,33 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   coffee: [],
-  isLoad: false,
-  isError: '',
+  status: 'loading',
 };
+
+export const fetchCoffee = createAsyncThunk('fetchCoffee', async () => {
+  const { data } = await axios.get('https://api.sampleapis.com/coffee/hot');
+  return data;
+});
 
 export const coffeeSlice = createSlice({
   name: 'coffee',
   initialState,
   reducers: {
-    coffeeFetch(state) {
-      state.isLoad = true;
-    },
-    coffeeFetchSuccess(state, action) {
-      state.coffee = action.payload;
-      state.isLoad = false;
-      state.isError = '';
-    },
-    coffeeFetchError(state, action) {
-      state.isLoad = false;
-      state.isError = action.payload;
-    },
     addCoffee(state, action) {
       state.coffee.unshift(action.payload);
     },
     deleteCoffee(state, action) {
       state.coffee = state.coffee.filter((c) => c.id !== action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCoffee.pending, (state) => {
+        state.status = 'loading';
+        state.coffee = [];
+      })
+      .addCase(fetchCoffee.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.coffee = action.payload;
+      })
+      .addCase(fetchCoffee.rejected, (state) => {
+        state.status = 'error';
+        state.coffee = [];
+      });
   },
 });
 

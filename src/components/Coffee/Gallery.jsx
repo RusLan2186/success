@@ -1,11 +1,12 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import cl from './Coffee.module.scss';
 const Gallery = () => {
   const coffeeList = useSelector((store) => store.coffee.coffee);
 
   return (
-    <div>
+    <div className={cl.gallery}>
       {
         <ImageGallery
           items={coffeeList.map((coffee) => ({

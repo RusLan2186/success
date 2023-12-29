@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 @import "./Reset.scss";
 @import "./function.scss";
-@import "~react-image-gallery/styles/scss/image-gallery.scss";
+@import "react-image-gallery/styles/scss/image-gallery.scss";
 
 body {
   font-family: "Roboto Slab", serif;
@@ -60,4 +60,7 @@ body {
 .active {
   text-transform: uppercase;
   color: orange;
+}
+.image {
+  height: 300px;
 }

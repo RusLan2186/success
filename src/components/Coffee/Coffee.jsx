@@ -3,16 +3,17 @@ import cl from './Coffee.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { coffeeFetching } from '../../redux/coffeeCreator';
 import CoffeeItem from './CoffeeItem';
-import { deleteCoffee } from '../../redux/slices/coffeeSlice';
+import { deleteCoffee, fetchCoffee } from '../../redux/slices/coffeeSlice';
 import AddCoffee from './AddCoffee';
-import CoffeeSlider from './CoffeeSlider';
 import Gallery from './Gallery';
 
 const Coffee = memo(() => {
   const coffeeList = useSelector((store) => store.coffee.coffee);
+  const fetchCoffeeStatus = useSelector((store) => store.coffee.status);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(coffeeFetching());
+    dispatch(fetchCoffee());
   }, []);
 
   const removeCoffee = (id) => {
@@ -24,6 +25,8 @@ const Coffee = memo(() => {
   return (
     <div className='coffee__container'>
       <div className={cl.title}>Coffee</div>
+      {fetchCoffeeStatus === 'loading' && <h1>Loading.....</h1>}
+      {fetchCoffeeStatus === 'error' && <h1>Error</h1>}
       <div>
         <Gallery />
       </div>
