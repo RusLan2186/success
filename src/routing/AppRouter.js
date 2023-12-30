@@ -1,22 +1,37 @@
 import React from 'react';
 
-import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { routesItems } from '.';
+import { privateRoutes, publicRoutes } from '.';
+import { useSelector } from 'react-redux';
 
 const AppRouter = () => {
+  const password = useSelector((store) => store.enter.password);
+
   return (
     <div>
-      <Routes>
-        {routesItems.map((route) => (
-          <Route
-            key={route.element}
-            path={route.path}
-            expect={route.expect}
-            element={<route.element />}
-          />
-        ))}
-      </Routes>
+      {password ? (
+        <Routes>
+          {privateRoutes.map((route) => (
+            <Route
+              key={route.element}
+              path={route.path}
+              expect={route.expect}
+              element={<route.element />}
+            />
+          ))}
+        </Routes>
+      ) : (
+        <Routes>
+          {publicRoutes.map((route) => (
+            <Route
+              key={route.element}
+              path={route.path}
+              expect={route.expect}
+              element={<route.element />}
+            />
+          ))}
+        </Routes>
+      )}
     </div>
   );
 };

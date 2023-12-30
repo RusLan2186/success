@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cl from './Test.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import TestItem from './TestItem';
@@ -13,10 +13,19 @@ const Test = () => {
   const { status } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const openSorting = useSelector((store) => store.users.sortingClose);
+  const isMountingUsers = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+    if (isMountingUsers.current) {
+      const usersJson = JSON.stringify(usersList);
+      localStorage.setItem('users', usersJson);
+    }
+    isMountingUsers.current = true;
+  }, [usersList]);
+
+  // useEffect(() => {
+  //   dispatch(fetchUsers());
+  // }, []);
 
   function handleDeleteUser(id) {
     dispatch(deleteUser(id));
@@ -34,9 +43,13 @@ const Test = () => {
 
     dispatch(closeSorting(false));
   }
+  function clearLS() {
+    localStorage.clear();
+  }
 
   return (
     <div className='test__container'>
+      <button onClick={clearLS}>Clear</button>
       {status === 'loading' && <h1>Loading</h1>}
       {status === 'error' && <h1>"error"</h1>}
       <div className={cl.sort}>

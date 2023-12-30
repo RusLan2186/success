@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 export const calculateCount = (cartItems) => {
   return cartItems.reduce((summ, item) => summ + item.count, 0);
 };

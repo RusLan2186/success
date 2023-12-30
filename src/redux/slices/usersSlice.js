@@ -1,8 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getCartFromLs } from '../../utils/getCartFromLS';
+
+const { usersItems } = getCartFromLs();
 
 const initialState = {
-  list: [],
+  list: usersItems,
   usersSearchList: [],
   isLoading: false,
   isError: '',
